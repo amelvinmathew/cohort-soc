@@ -1,6 +1,7 @@
 #ifndef COHORT_FIFO_PARAM_H
 #define COHORT_FIFO_PARAM_H
 
+#include "cohort_fifo_layout.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -21,10 +22,6 @@
 #endif
 
 static uint64_t back_off_count = 0;
-typedef uint64_t addr_t; // though we only use the lower 32 bits
-typedef uint32_t len_t; // length of fifo
-typedef len_t ptr_t;
-typedef uint32_t el_size_t; // element size width
 
 struct _fifo_ctrl_t;
 
@@ -37,13 +34,6 @@ typedef struct _fifo_ctrl_t fifo_ctrl_t;
  */
 typedef void (*fifo_push_func_t)(uint64_t element, fifo_ctrl_t* fifo_ctrl);
 typedef uint64_t (*fifo_pop_func_t)(fifo_ctrl_t* fifo_ctrl);
-
-
-typedef struct __attribute__((__packed__)) {
-    addr_t addr;
-    el_size_t size;
-    len_t len;
-} meta_t;
 
 struct _fifo_ctrl_t {
     uint32_t fifo_length;
